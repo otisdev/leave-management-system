@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import {useState} from "react";
-import { publicRequest } from '../../request';
+import { publicRequest } from '../request';
 
 const Container = styled.div`
         height: 100vh;
@@ -76,15 +76,17 @@ const Leave = () => {
   const [type,setType] = useState("");
   const [days, setDays] = useState(0);
   const [error,setError] = useState(false);
-
+  const [reason, setReason] = useState("");
   
-  const handleClick = () => {
+  const  handleClick = async() => {
       try{
           const req = await publicRequest.post("/request",{
             employee_name: name, 
             employee_lastname:lastname,
             leave_type: type,
-            leave_days: days} )
+            leave_days: days,
+             reason: reason },
+           )
       }catch(e){
         console.log(e);
         setError(true);

@@ -14,12 +14,13 @@ const LeaveSchema = new mongoose.Schema({
         type: String, required: true
     },
     leave_type: {
-        type: String, required: true
+        type: String, required: true,
     }
     ,
     Status : { 
         type: String, default: "pending"
     },
+    reason : { type : String}
 })
 
 module.exports = mongoose.model("Leave", LeaveSchema);
