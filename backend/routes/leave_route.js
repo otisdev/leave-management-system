@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Leave = require("../models/Leave");
 
+
+
 //POST LEAVE REQUEST
 
 router.post("/", async (req,res)=>{
@@ -32,6 +34,7 @@ router.put("/:id", async(req,res) => {
     );  
     }catch(e){
         res.status(500).send("something went wrong :(")
+        console.log(e);
     }
     
 });
@@ -43,6 +46,7 @@ router.get("/", async(req,res)=>{
         const orders = await Leave.find();
     }catch(e){
         res.status(500).send("something went wrong");
+        console.log(e);
     }
 })
 

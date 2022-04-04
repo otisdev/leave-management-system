@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import {useState} from "react";
+import { publicRequest } from '../../request';
 
 const Container = styled.div`
         height: 100vh;
@@ -79,7 +80,11 @@ const Leave = () => {
   
   const handleClick = () => {
       try{
-          console.log("yeah")
+          const req = await publicRequest.post("/request",{
+            employee_name: name, 
+            employee_lastname:lastname,
+            leave_type: type,
+            leave_days: days} )
       }catch(e){
         console.log(e);
         setError(true);
