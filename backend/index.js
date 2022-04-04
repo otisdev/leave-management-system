@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const leaveRoute = require('./routes/leave_route')
+const leaveRoute = require('./routes/leaveRoute')
 const Mongoose = require("mongoose");
 const app = express();
 
