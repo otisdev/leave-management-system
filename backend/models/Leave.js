@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
 const LeaveSchema = new mongoose.Schema({
-    employee_id : {
-        type: String, required: true
-    },
+  
     employee_name: {
         type: String, required: true
     },
@@ -20,7 +18,8 @@ const LeaveSchema = new mongoose.Schema({
     Status : { 
         type: String, default: "pending"
     },
-    reason : { type : String}
+    reason : { type : String},
+    isAdmin : { type: Boolean, default : false}
 })
 
 module.exports = mongoose.model("Leave", LeaveSchema);
