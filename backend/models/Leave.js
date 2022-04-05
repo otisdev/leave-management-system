@@ -11,6 +11,12 @@ const LeaveSchema = new mongoose.Schema({
     leave_days: {
         type: String, required: true
     },
+    leave_start: {
+        type: String, required: true
+    },
+    leave_end: {
+        type: String, required: true
+    },
     leave_type: {
         type: String, required: true,
     }

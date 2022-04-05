@@ -14,7 +14,7 @@ router.post("/", async (req,res)=>{
         res.status(200).send(savedLeave);
     }catch(e){
         console.log(e);
-        res.status(200).send(e);
+        res.status(500).send(e);
     }
 })
 
@@ -43,10 +43,13 @@ router.put("/:id", async(req,res) => {
 
 router.get("/", async(req,res)=>{
     try{
-        const orders = await Leave.find();
+        const leave = await Leave.find();
+        res.status(200).send(leave);
+
     }catch(e){
         res.status(500).send("something went wrong");
         console.log(e);
+    
     }
 })
 

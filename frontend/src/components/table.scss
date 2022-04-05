@@ -1,0 +1,23 @@
+.table {
+  height: 100vh;
+  width: auto;
+  text-align: center;
+  background-color: white;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+      .wrapper{
+        height: 60vh;
+        min-width: 60%;
+        justify-content: space-between;
+        align-items: center;       
+        background-color: #ffffff;
+        -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+        overflow-y: auto;
+      }  
+  
+      
+ 
+
+  }

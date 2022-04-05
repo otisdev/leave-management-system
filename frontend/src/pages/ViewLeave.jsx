@@ -1,8 +1,11 @@
 import React from 'react'
+import Requests from '../components/Requests'
 
 const ViewLeave = () => {
   return (
-    <div>ViewLeave</div>
+    <div>
+      <Requests />
+    </div>
   )
 }
 

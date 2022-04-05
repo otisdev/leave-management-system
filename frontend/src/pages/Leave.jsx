@@ -67,7 +67,6 @@ const Error = styled.span`
 color : red;
 `
 
-
 const Leave = () => {
 
 
@@ -77,8 +76,18 @@ const Leave = () => {
   const [days, setDays] = useState(0);
   const [error,setError] = useState(false);
   const [reason, setReason] = useState("");
+  const [start, setStart] = useState("")
+ // const [end, setEnd] = useState("")
+
+
+
+  
   
   const  handleClick = async(e) => {
+
+        
+    
+
       e.preventDefault();
       try{
           const res = await publicRequest.post("/request",{
@@ -86,7 +95,8 @@ const Leave = () => {
             employee_lastname:lastname,
             leave_type: type,
             leave_days: days,
-             reason: reason },
+           
+            reason: reason },
            )
       }catch(e){
         console.log(e);
@@ -103,7 +113,8 @@ const Leave = () => {
      <Input placeholder="Employee Name" onChange={(e) => setName(e.target.value)} />
      <Input placeholder="Employee Lastname" onChange={(e) => setLastname(e.target.value)} />
      <Input placeholder="Leave Days" type="number" min="1" max="5" onChange={(e) => setDays(e.target.value)} />
-     <Options onChange={(e) => setType(e.target.value)}>
+     <Input type="datetime-local" id="start date" placeholder="start time" onChange={(e) => setStart(e.target.value)} />     
+     <Options placeholder="Type of leave" onChange={(e) => setType(e.target.value)}>
        <Option value="Paid" >Paid</Option>
        <Option value="Unpaid" >Unpaid</Option>
      </Options>
