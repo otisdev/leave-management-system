@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import {useState} from "react";
 import { publicRequest } from '../request';
+import Navbar from '../components/Navbar';
 
 const Container = styled.div`
         height: 100vh;
@@ -107,7 +108,10 @@ const Leave = () => {
 
 
   return (
-    <Container>
+    <div>
+       <Navbar />
+       <Container>
+     
      <Wrapper>
      <Form>
      <Input placeholder="Employee Name" onChange={(e) => setName(e.target.value)} />
@@ -124,6 +128,8 @@ const Leave = () => {
        </Form>
      </Wrapper>
     </Container>
+    </div>
+    
   )
 }
 
