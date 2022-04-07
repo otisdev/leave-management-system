@@ -3,7 +3,6 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const leaveRoute = require('./routes/leaveRoute')
 const Mongoose = require("mongoose");
-const googleEvents = require('./controller/googleEvents')
 const app = express();
 
 
@@ -24,7 +23,7 @@ Mongoose
 
 
 //ROUTES
-app.use("/api/request",leaveRoute, );
+app.use("/api/request",leaveRoute );
 
 
 

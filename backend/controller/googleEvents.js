@@ -1,11 +1,14 @@
+const router  = require("express").Router();
 const {google} = require("googleapis");
 const {OAuth2} = google.auth
-const oAuth2client = new OAuth2(process.env.GOOGLE_ID, process.env.GOOGLE_SECRET);
+const oAuth2Client = new OAuth2(process.env.GOOGLE_ID, process.env.GOOGLE_SECRET);
 oAuth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN});
 
 const calender = google.calender({version: 'v3', oAuth2Client});
 const eventStart = req.body.leave_start;
 const eventEnd = req.body.leave_end;
+
+
 
 const event = {
     summary : "Leave Request",
@@ -45,4 +48,4 @@ calender.freebusy.query({
     return console.log(`busy on this day`)
 })
 
-module.exports = calender;
+

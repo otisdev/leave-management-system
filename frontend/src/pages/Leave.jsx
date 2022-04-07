@@ -86,7 +86,9 @@ const Leave = () => {
   
   const  handleClick = async(e) => {
 
-        
+        const startDate = new Date(start);
+        const endDate = new Date();
+        console.log((endDate.setDate()+days));
     
 
       e.preventDefault();
