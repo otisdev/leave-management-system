@@ -64,6 +64,12 @@ color:white;
 cursor: pointer;
 margin-b10tom:10px;
 `
+const Label = styled.p`
+  margin-bottom: 3px;
+  color: grey;
+  font-weight: 200;
+`
+
 const Error = styled.span`
 color : red;
 `
@@ -78,18 +84,21 @@ const Leave = () => {
   const [error,setError] = useState(false);
   const [reason, setReason] = useState("");
   const [start, setStart] = useState("")
- // const [end, setEnd] = useState("")
+  const [end, setEnd] = useState("")
 
 
 
   
   
   const  handleClick = async(e) => {
+   
+    const currentDate = new Date(start);
+    const numberOfDaysToAdd = days;
+    const result = currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
+    const end  = new Date(result);
+    console.log(end);
 
-        const startDate = new Date(start);
-        const endDate = new Date();
-        console.log((endDate.setDate()+days));
-    
+      
 
       e.preventDefault();
       try{
@@ -98,7 +107,8 @@ const Leave = () => {
             employee_lastname:lastname,
             leave_type: type,
             leave_days: days,
-           
+            leave_start: start,
+            leave_end: end,
             reason: reason },
            )
       }catch(e){
@@ -118,8 +128,9 @@ const Leave = () => {
      <Form>
      <Input placeholder="Employee Name" onChange={(e) => setName(e.target.value)} />
      <Input placeholder="Employee Lastname" onChange={(e) => setLastname(e.target.value)} />
-     <Input placeholder="Leave Days" type="number" min="1" max="5" onChange={(e) => setDays(e.target.value)} />
-     <Input type="datetime-local" id="start date" placeholder="start time" onChange={(e) => setStart(e.target.value)} />     
+     <Input placeholder="Leave Days" type="number" min="1" max="5" onChange={(e) => setDays(parseInt(e.target.value))} />
+     <Input type="datetime-local" onChange={(e) => setStart(e.target.value)} />
+     
      <Options placeholder="Type of leave" onChange={(e) => setType(e.target.value)}>
        <Option value="Paid" >Paid</Option>
        <Option value="Unpaid" >Unpaid</Option>

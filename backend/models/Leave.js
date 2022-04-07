@@ -12,10 +12,10 @@ const LeaveSchema = new mongoose.Schema({
         type: String, required: true
     },
     leave_start: {
-        type: String, required: true
+        type: Date, required: true
     },
     leave_end: {
-        type: String, required: true
+        type: Date, required: true
     },
     leave_type: {
         type: String, required: true,

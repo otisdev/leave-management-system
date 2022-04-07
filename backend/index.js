@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 const leaveRoute = require('./routes/leaveRoute')
 const Mongoose = require("mongoose");
 const app = express();
-
+const google = require("./controller/googleEvents")
 
 
 dotenv.config();
@@ -23,7 +23,7 @@ Mongoose
 
 
 //ROUTES
-app.use("/api/request",leaveRoute );
+app.use("/api/request",leaveRoute,google);
 
 
 

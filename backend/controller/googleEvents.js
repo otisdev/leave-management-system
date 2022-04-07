@@ -1,51 +1,67 @@
-const router  = require("express").Router();
-const {google} = require("googleapis");
-const {OAuth2} = google.auth
-const oAuth2Client = new OAuth2(process.env.GOOGLE_ID, process.env.GOOGLE_SECRET);
-oAuth2Client.setCredentials({refresh_token: process.env.REFRESH_TOKEN});
+const express = require("express");
+const router = express.Router() 
+const {google} = require('googleapis');
+require('dotenv').config();
+const { OAuth2 } = google.auth
 
-const calender = google.calender({version: 'v3', oAuth2Client});
-const eventStart = req.body.leave_start;
-const eventEnd = req.body.leave_end;
+const oAuth2Client = new OAuth2(
+  process.env.GOOGLE_ID,
+  process.env.GOOGLE_SECRET
+)
 
+oAuth2Client.setCredentials({
+  refresh_token: process.env.AUTH_REFRESH,
+})
 
+const calendar = google.calendar({ version: 'v3', auth: oAuth2Client })
 
-const event = {
-    summary : "Leave Request",
-    location: " ",
-    description: ` ${req.body.employee_name} Leave Request`,
-    start:{
-        dateTime: eventStartTime,
-        timeZone:'UTC',
-
-    },
-    endTime: {
-        dateTime: eventEndTime,
-        timeZone: 'UTC'
-    },
-    colorId: 1,
-    
-}
-
-calender.freebusy.query({
-    resource:{
-        timeMin: eventStartTime,
-        timeMax:eventEndTime,
-        timeZone: 'UTC',
-        items: [{id: 'primary'}],
+ router.post("/", async (req,res)=>{
+    try{
+        const event = {
+            summary: `Leave Request`,
+            description: `request for leave by ${req.body.employee_name}.`,
+            colorId: 1,
+            start: {
+              dateTime: new Date(req.body.leave_start),
+              timeZone: 'UTC',
+            },
+            end: {
+              dateTime: new Date(req.body.leave_end),
+              timeZone: 'UTC',
+            },
+          }
+          
+        await  calendar.freebusy.query(
+            {
+              resource: {
+                timeMin: new Date(req.body.leave_start),
+                timeMax: new Date(req.body.leave_end),
+                timeZone: 'UTC',
+                items: [{ id: 'primary' }],
+              },
+            },
+            (err, res) => {
+              if (err) return console.error(err)
+          
+              const eventArr = res.data.calendars.primary.busy
+          
+              if (eventArr.length === 0)
+                return calendar.events.insert(
+                  { calendarId: 'primary', resource: event },
+                  err => {
+                    if (err) return console.error('Error Creating Calender Event:', err)
+                    return console.log('shazam event created.')
+                  }
+                )
+          
+              return console.log(`date occupied...`)
+            }
+          )
+         
+    }catch(e){
+        console.log("puwm, pushm", e)
     }
-}, (err, req)=> {
-    if(err) return console.error("Query error", err)
-    const eventsArr = res.data.calendes.primary.busy
-    if(eventsArr.length === 0) return calender.events.insert({
-        calenderId: 'primary',
-        resource: event
-    }, err => {
-        if(err) return console.error('calender event creation error', err)
-
-        return console.log("calender event created", event)
-    })
-    return console.log(`busy on this day`)
 })
 
 
+module.exports = router;
