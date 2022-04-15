@@ -187,7 +187,7 @@ leave.forEach(function (a) {
        <Reg>
           <Label>EMPLOYEE:{name + ' ' + lastname}</Label>
           <Label>Latest Leave: {start}</Label>
-          <Label>Leave Days Taken:{daysTaken.totalLeave === undefined ? "no leave days taken yet" : daysTaken.totalLeave}</Label>
+          <Label>Leave Days Taken:{}</Label>
           <Label>Leave Days Left:{daysLeft}</Label>
        </Reg>
   
