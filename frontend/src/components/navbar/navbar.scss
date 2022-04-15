@@ -12,22 +12,16 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-right: 3px;
         
-    }
-    .login{
+   .search{
         display: flex;
         align-items: center;
-        justify-content: center;
-        border: 0.5px solid rgb(255, 255, 255);
+        border: 0.5px solid lightgray;
         padding: 3px;
-        margin-right: 3px;
-        text-align: center;
+
         input{
-            margin: 3px;
-            justify-content: space-between;
-            border: none ;
-            outline: 0.5px solid rgb(160, 159, 159);
+            border: none;
+            outline:none;
             background: transparent;
         }
     }
@@ -39,6 +33,18 @@
             display: flex;
             align-items: center;
             margin-right: 20px;
+
+            .icon{
+                font-size: 20px;
+
+            }
+            .avatar{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
         }
-    }
+    } 
+}
+    
 }

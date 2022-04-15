@@ -1,10 +1,11 @@
-import Leave from "./pages/Leave";
 import {
   BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
-import ViewLeave from "./pages/ViewLeave";
+import Admin from "./pages/admin/Admin";
+import Home from "./pages/home/Home";
+import Employee from "./pages/employee/Employee";
 
 
 function App() {
@@ -13,11 +14,12 @@ function App() {
     <Routes>
 
     <Route path="/" >
-        <Route index element={<Leave/>} />
-        <Route path="/request" element={<ViewLeave/>} />
+        <Route index element={<Home/>} />
+        <Route path ="/employee" element ={<Employee/>} />
+        <Route path="/dashboard" element={<Admin/>} />
     </Route>
     </Routes>
-  </BrowserRouter> 
+  </BrowserRouter>
    );
 }
 

@@ -1,12 +1,15 @@
 import React from 'react'
 import styled from "styled-components";
 import {useState} from "react";
-import { publicRequest } from '../request';
-import Navbar from '../components/Navbar';
+import { publicRequest } from '../../request';
+import Navbar from '../../components/navbar/Navbar';
+import { useEffect } from 'react';
 
 const Container = styled.div`
         height: 100vh;
         width: auto;
+        display:flex;
+        flex:2;
         text-align: center;
         background-color: white;
         display:flex;
@@ -21,6 +24,7 @@ const Wrapper = styled.div`
         align-items: center;       
         background-color: #ffffff;
         border-radius: 5%;
+        margin-right: 30px;
         -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
         box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 `
@@ -30,7 +34,13 @@ const Form = styled.form`
       margin: 10px 0px 0px 10px;
       padding: 10px; 
 `
-
+const Reg = styled.div`
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      margin: 10px 0px 0px 10px;
+      padding: 10px; 
+`
 const Input = styled.input`
   flex:1;
   min-width: 40%;
@@ -74,7 +84,7 @@ const Error = styled.span`
 color : red;
 `
 
-const Leave = () => {
+const Employee = () => {
 
 
   const [name,setName] = useState("");
@@ -85,18 +95,42 @@ const Leave = () => {
   const [reason, setReason] = useState("");
   const [start, setStart] = useState("")
   const [end, setEnd] = useState("")
+  const daysLeft = 100;
+  let daysTaken;
+  const [leave, setLeave] = useState([])
 
+  useEffect(() => {
 
+  const getLeave = async () => {
+    try{
+      const rows = await publicRequest.get("/request")
+      setLeave(rows.data)
+    }catch(e){
+      console.log(e);
+    }
+  }
+  getLeave();
 
+  },[] )
   
   
+  
+let result = [];
+leave.forEach(function (a) {
+    if (!this[a.employee_name && a.employee_lastname]) {
+        this[a.employee_name && a.employee_lastname] = { name: a.employee_name, lastname: a.employee_lastname, totalLeave: 0 };
+        result.push(this[a.employee_name && a.employee_lastname]);
+    }
+    this[a.employee_name && a.employee_lastname].totalLeave =+ a.leave_days;
+}, Object.create(null));
+
   const  handleClick = async(e) => {
    
     const currentDate = new Date(start);
     const numberOfDaysToAdd = days;
-    const result = currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
-    const end  = new Date(result);
-    console.log(end);
+    const results = currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
+    const end  = new Date(results);
+    
 
       
 
@@ -111,11 +145,20 @@ const Leave = () => {
             leave_end: end,
             reason: reason },
            )
+            
+          
+          daysTaken = result.find( element => element.name === name && element.lastname === lastname) 
+          console.log(daysTaken.totalLeave)
+
+            
       }catch(e){
         console.log(e);
         setError(true);
       }
     }
+    
+  
+
 
 
 
@@ -140,10 +183,20 @@ const Leave = () => {
       {error && <Error>Opps, something isnt quite right...</Error>}    
        </Form>
      </Wrapper>
+     <Wrapper>
+       <Reg>
+          <Label>EMPLOYEE:{name + ' ' + lastname}</Label>
+          <Label>Latest Leave: {start}</Label>
+          <Label>Leave Days Taken:{daysTaken.totalLeave === undefined ? "no leave days taken yet" : daysTaken.totalLeave}</Label>
+          <Label>Leave Days Left:{daysLeft}</Label>
+       </Reg>
+  
+
+     </Wrapper>
     </Container>
     </div>
     
   )
 }
 
-export default Leave
+export default Employee

@@ -29,7 +29,7 @@ app.use("/api/request",leaveRoute,google);
 
 //SETTING UP LOCAL SERVER
 try{
-app.listen(process.env.PORT || 5050, () => console.log('server successfuly online'))
+app.listen(process.env.PORT || 5050, () => console.log('server successfully online'))
 }catch(e){
     res.status(500).send("server error")
     console.log(e);

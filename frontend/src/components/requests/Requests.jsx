@@ -6,34 +6,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { publicRequest } from '../request';
-import { useEffect, useState } from 'react';
-import "../components/table.scss"
+import "../requests/table.scss"
+import moment from 'moment'
 
 
-const Requests = () => {
-
-const [leave, setLeave] = useState([])
-
-useEffect(() => {
-
-  const getLeave = async () => {
-    try{
-      const rows = await publicRequest.get("/request")
-      setLeave(rows.data)
-    }catch(e){
-      console.log(e);
-    }
-  }
-  getLeave();
-
-},[] )
-
-
-
-
+const Requests = ({leave}) => {
   return (
-    <TableContainer component={Paper} className='table'>
+    <TableContainer component={Paper} className="table" >
     <div class="wrapper">
     <Table aria-label="simple table">
       <TableHead>
@@ -43,6 +22,7 @@ useEffect(() => {
           <TableCell align="right">Leave Type</TableCell>
           <TableCell align="right">Start&nbsp;</TableCell>
           <TableCell align="right">End&nbsp;</TableCell>
+          <TableCell align="right">Reason&nbsp;</TableCell>
           <TableCell align="right">Status&nbsp;</TableCell>
         </TableRow>
       </TableHead>
@@ -57,8 +37,9 @@ useEffect(() => {
             </TableCell>
             <TableCell align="right">{employee.leave_days}</TableCell>
             <TableCell align="right">{employee.leave_type}</TableCell>
-            <TableCell align="right">{employee.leave_start}</TableCell>
-            <TableCell align="right">{employee.leave_end}</TableCell>
+            <TableCell align="right">{moment(employee.leave_start).format('LL')}</TableCell>
+            <TableCell align="right">{moment(employee.leave_end).format('LL')}</TableCell>
+            <TableCell align="right">{employee.reason}</TableCell>
             <TableCell align="right">{employee.Status}</TableCell>
 
           </TableRow>
