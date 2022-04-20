@@ -6,12 +6,18 @@ import Featured from '../../components/featured/Featured'
 //import Sidebar from '../../components/sidebar/Sidebar'
 import { publicRequest } from '../../request';
 import { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 import "./admin.scss"
 import Sidebar from '../../components/sidebar/Sidebar'
 const Admin = () => {
 
-  
+const user = useSelector(state=>state.employee.currentEmployee)
+const navigate = useNavigate();
+
+if(!user.isAdmin) navigate("/employee")
+
 const [leave, setLeave] = useState([])
 
 useEffect(() => {

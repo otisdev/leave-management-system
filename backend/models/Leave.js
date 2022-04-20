@@ -25,7 +25,7 @@ const LeaveSchema = new mongoose.Schema({
         type: String, default: "pending"
     },
     reason : { type : String},
-    isAdmin : { type: Boolean, default : false}
-})
+},
+{timestamps:true});
 
 module.exports = mongoose.model("Leave", LeaveSchema);

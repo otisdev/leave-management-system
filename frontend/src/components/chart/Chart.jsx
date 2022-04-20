@@ -6,8 +6,7 @@ import moment from 'moment'
 
 const Chart = ({leave}) => {
   let date = new Date();
-  let datas = 
-    leave.map((item)=>(
+  let datas =  leave.map((item)=>(
      {
       date: `${moment(item.leave_start).format('MMMM')}`,
       status : `${item.Status}`
@@ -22,7 +21,6 @@ const Chart = ({leave}) => {
       return mp;
   }, new Map).values()];
 
-  console.log(result);
 
 
 

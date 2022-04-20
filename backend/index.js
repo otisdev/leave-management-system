@@ -5,7 +5,7 @@ const leaveRoute = require('./routes/leaveRoute')
 const Mongoose = require("mongoose");
 const app = express();
 const google = require("./controller/googleEvents")
-
+const userRoute = require("./routes/userRoute")
 
 dotenv.config();
 app.use(cors());
@@ -14,8 +14,8 @@ app.use(express.json());
 
 
 
-//DATABASE CONNECTION
 
+//DATABASE CONNECTION
 Mongoose
 .connect(process.env.MONGO)
         .then(()=>{console.log("successfully connected to database")})
@@ -23,7 +23,8 @@ Mongoose
 
 
 //ROUTES
-app.use("/api/request",leaveRoute,google);
+app.use("/api/request",leaveRoute);
+app.use("/api/user",userRoute);
 
 
 
