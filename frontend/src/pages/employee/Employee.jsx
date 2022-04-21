@@ -7,11 +7,13 @@ import "../employee/employee.scss"
 import Widget from '../../components/widget/Widget';
 import Leave from '../../components/leave/Leave';
 import Chart from '../../components/chart/Chart';
+import { useSelector, useDispatch} from "react-redux"
 
 
 
 const Employee = () => {
- 
+
+const user = useSelector(state=>state.employee.currentEmployee)
 const [leave, setLeave] = useState([])
 
   useEffect(() => {
@@ -40,9 +42,8 @@ const [leave, setLeave] = useState([])
       <div className="homeContainer">
         <Navbar />
         <div className="widgets">
-          <Widget leave={leave} type="total leave" />
-          <Widget leave={leave} type="unpaid leave"  />
-          <Widget leave={leave} type="paid leave"  />
+          <Widget  type={"paid"}  />
+          <Widget  type={"unpaid"}  />
         </div>
         <Leave leave={leave}/>
         <Chart leave={leave}/>

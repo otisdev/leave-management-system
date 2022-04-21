@@ -13,11 +13,6 @@ import "./admin.scss"
 import Sidebar from '../../components/sidebar/Sidebar'
 const Admin = () => {
 
-const user = useSelector(state=>state.employee.currentEmployee)
-const navigate = useNavigate();
-
-if(!user.isAdmin) navigate("/employee")
-
 const [leave, setLeave] = useState([])
 
 useEffect(() => {

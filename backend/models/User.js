@@ -8,8 +8,11 @@ const UserSchema = new mongoose.Schema({
     username:{type: String, required: true, unique: true},
     password:{type: Number, required: true },
     paid: {type: Number, default: 30},
+    paidLeft: {type: Number, default:30},
     unpaid: {type: Number, default: 50},
+    unpaidLeft: {type: Number, default: 50},
     isAdmin : { type: Boolean, default : false}
+
 
 },
 {timestamps:true}

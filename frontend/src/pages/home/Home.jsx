@@ -126,6 +126,7 @@ const ButtonStyle = styled.div`
  flex-direction: row;
  align-items center;
  justify-content: center;
+ margin-top: 10%;
  ` 
 
  const Error = styled.span`
@@ -144,9 +145,8 @@ const Home = () => {
   const [password,setPassword] = useState("");
   const [open,setOpen] = useState(false)
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  let url;
   const user = useSelector(state=>state.employee.currentEmployee)
-
   const {isFetching, error } = useSelector((state) => state.employee);
   const handleClick = (e) => {
     e.preventDefault();
@@ -166,6 +166,8 @@ const Home = () => {
     e.preventDefault();
     setOpen(false)
   }
+
+
   return (
    
     <Container>

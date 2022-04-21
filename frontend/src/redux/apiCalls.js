@@ -7,7 +7,7 @@ import { requestStart,requestSuccess,requestFailure } from "./requestRedux";
 export const login = async (dispatch, employee) =>{
     dispatch(loginStart());
     try{
-        const res = await publicRequest.post("/user", employee);
+        const res = await publicRequest.post("/user/login", employee);
         dispatch(loginSuccess(res.data))
     }catch(err){
         dispatch(loginFailure());
