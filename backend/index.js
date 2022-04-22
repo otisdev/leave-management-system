@@ -5,7 +5,8 @@ const leaveRoute = require('./routes/leaveRoute')
 const Mongoose = require("mongoose");
 const app = express();
 const google = require("./controller/googleEvents")
-const userRoute = require("./routes/userRoute")
+const userRoute = require("./routes/userRoute");
+const { application } = require('express');
 
 dotenv.config();
 app.use(cors());
@@ -23,9 +24,8 @@ Mongoose
 
 
 //ROUTES
-app.use("/api/request",leaveRoute);
+app.use("/api/request",leaveRoute,google );
 app.use("/api/user",userRoute);
-
 
 
 //SETTING UP LOCAL SERVER

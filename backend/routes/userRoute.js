@@ -58,8 +58,8 @@ router.post("/login", async (req,res) => {
 
 //UPDATE DAYS
 
-router.put("/days", async (req, res)=>{
-
+router.put("/:id", async (req, res,next)=>{
+  try{
     const updateDays = await User.findByIdAndUpdate(
         req.params.id,
         {
@@ -67,8 +67,13 @@ router.put("/days", async (req, res)=>{
         }, 
         {new: true}
     );
-    res.status(200).send(err);
-
+    
+    res.status(200).send(updateDays);
+  }catch(e){
+    res.status(500).send(e)
+  }
+  
+    
 })
 
 module.exports = router;

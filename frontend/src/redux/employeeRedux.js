@@ -4,10 +4,6 @@ const employeeSlice = createSlice({
     name: "employee",
     initialState: {
         currentEmployee: null,
-        paid:0,
-        paidLeft:0,
-        unpaid:0,
-        unpaidLeft:0,
         isFetching: false,
         error: false,
     },
@@ -19,10 +15,10 @@ const employeeSlice = createSlice({
         loginSuccess:(state, action)=>{
             state.isFetching = false;
             state.currentEmployee = action.payload;
-            state.paid = action.payload.paid;
-            state.pLeft = action.payload.paidLeft;
-            state.unpaid = action.payload.unpaid;
-            state.upLeft = action.payload.unpaidLeft;
+            state.currentEmployee.paid = action.payload.paid;
+            state.currentEmployee.paidLeft = action.payload.paidLeft;
+            state.currentEmployee.unpaid = action.payload.unpaid;
+            state.currentEmployee.unpaidLeft = action.payload.unpaidLeft;
         
             
         },
@@ -30,6 +26,7 @@ const employeeSlice = createSlice({
             state.isFetching = false;
             state.error = true;
         },
+
 
     },
 })

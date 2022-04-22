@@ -7,13 +7,11 @@ import "../employee/employee.scss"
 import Widget from '../../components/widget/Widget';
 import Leave from '../../components/leave/Leave';
 import Chart from '../../components/chart/Chart';
-import { useSelector, useDispatch} from "react-redux"
 
 
 
 const Employee = () => {
 
-const user = useSelector(state=>state.employee.currentEmployee)
 const [leave, setLeave] = useState([])
 
   useEffect(() => {

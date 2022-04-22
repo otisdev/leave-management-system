@@ -2,6 +2,11 @@ import React from 'react'
 import styled from "styled-components";
 import {useState} from "react";
 import { publicRequest } from '../../request';
+import { useSelector, useDispatch} from "react-redux"
+import { request } from '../../redux/apiCalls';
+import { update } from '../../redux/apiCalls';
+
+
 
 const Container = styled.div`
         height: 100vh;
@@ -61,7 +66,7 @@ const Options = styled.select`
 `
 const Option = styled.option`
       flex:1;
-      `
+`
 
 const Button = styled.button`
 width:40%;
@@ -82,6 +87,7 @@ const Error = styled.span`
 color : red;
 `
 
+
 const Leave = ({leave}) => {
 
    
@@ -96,14 +102,16 @@ const Leave = ({leave}) => {
   const [reason, setReason] = useState("");
   const [start, setStart] = useState("")
 
+  const user = useSelector(state=>state.employee.currentEmployee);
+  const id = user._id;
 
-
+  const dispatch = useDispatch();
   
 
 
   
   const  handleClick = async(e) => {
-   
+    let updateDays = 0
     const currentDate = new Date(start);
     const numberOfDaysToAdd = days;
     const results = currentDate.setDate(currentDate.getDate() + numberOfDaysToAdd);
@@ -114,16 +122,27 @@ const Leave = ({leave}) => {
 
       e.preventDefault();
       try{
-          const res = await publicRequest.post("/request",{
+          
+         request(dispatch,
+            {
             employee_name: name, 
             employee_lastname:lastname,
             leave_type: type,
             leave_days: days,
             leave_start: start,
             leave_end: end,
-            reason: reason },
-           )
-          
+            reason: reason,
+            employeeId: user._id,
+          })
+
+          if(type === "paid"){
+              update(dispatch, id, {paidLeft: (user.paidLeft - days) }, type, days)
+          }else{
+            update(dispatch,id, {unpaidLeft: (user.unpaidLeft - days) }, days)
+
+          }
+
+         
       }catch(e){
         console.log(e);
         setError(true);

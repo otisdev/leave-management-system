@@ -32,7 +32,7 @@ const Featured = ({leave}) => {
           <CircularProgressbar value={percent} text={daysLeft + "Days"} strokeWidth={5} />
         </div>
         <p className="title">Total Leave Requests</p>
-        <p className="amount">{leaveTotal.length + 1}</p>
+        <p className="amount">{leaveTotal.length }</p>
       </div>
     </div>
     )

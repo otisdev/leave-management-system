@@ -15,18 +15,32 @@ const requestSlice = createSlice({
             state.isFetching = true;
         },
         requestSuccess: (state, action)=>{
-            state.isFetching = false
+            state.isFetching = false;
             state.currentRequest =  action.payload;
-            state.paid = action.payload.paid;
-            state.unapid = action.payload.unapid;
         },
         requestFailure: (state,action) => {
             state.isFetching = false;
+            state.error = true;
+        },
+
+        //update request
+        updateStart:(state) => {
+            state.isFetching = true;
+        },
+        updatePaidSuccess: (state, action) => {
+            state.isFetching = false;
+            state.paid = action.payload.paid;
+        },
+        updateUnpaidSuccess: (state,action) => {
+            state.isFetching = false;
+            state.unpaid = action.payload.unpaid;   
+        },
+        updateFailure: (state) =>{
             state.error = true;
         }
 
     }
 })
 
-export const {requestStart, requestSuccess, requestFailure} = requestSlice.actions;
+export const {requestStart, requestSuccess, requestFailure, updateStart, updatePaidSuccess,updateUnpaidSuccess, updateFailure} = requestSlice.actions;
 export default requestSlice.reducer;

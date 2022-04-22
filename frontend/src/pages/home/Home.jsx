@@ -3,7 +3,7 @@ import styled from "styled-components";
 import admin from "../../assets/admin.png";
 import employee from "../../assets/employee.png";
 import loginimg from "../../assets/login.png"
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import Modal from "../../components/modal/Modal";
 import { useSelector, useDispatch} from "react-redux"
@@ -145,18 +145,26 @@ const Home = () => {
   const [password,setPassword] = useState("");
   const [open,setOpen] = useState(false)
   const dispatch = useDispatch();
-  let url;
+  const [url,setUrl] = useState("")
+  let navigate = useNavigate();
   const user = useSelector(state=>state.employee.currentEmployee)
   const {isFetching, error } = useSelector((state) => state.employee);
-  const handleClick = (e) => {
+  const handleEmployee = (e) => {
     e.preventDefault();
-
+    setUrl("/employee")
+    setOpen(true)
+  }
+  const handleAdmin = (e) => {
+    e.preventDefault();
+    setUrl("/dashboard")
     setOpen(true)
   }
   const handleLogin =  async (e) =>{
     e.preventDefault();
     try{ 
     login(dispatch, {username, password})
+    console.log(url)
+    navigate(`${url}`)
   }catch(e){
     console.log(e);
   }
@@ -179,7 +187,7 @@ const Home = () => {
        <Label>EMPLOYEE</Label>
      <Img src={employee} />
      
-       <Button onClick={handleClick}>Enter</Button>
+       <Button onClick={handleEmployee}>Enter</Button>
      
      </Form>
      </Wrapper>
@@ -189,7 +197,7 @@ const Home = () => {
        <Label>ADMIN</Label>
      <Img src ={admin} />
      
-      <Button onClick={handleClick}>Enter</Button>
+      <Button onClick={handleAdmin}>Enter</Button>
      
      </Form>
      </Wrapper>
